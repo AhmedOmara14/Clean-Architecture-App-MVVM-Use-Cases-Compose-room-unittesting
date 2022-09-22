@@ -2,6 +2,7 @@ package com.omaradev.movieapp.presentation.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,7 +25,7 @@ import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun LastReleaseItem(items: List<Movie>) {
+fun LastReleaseItem(items: List<Movie>, onExecuteLastAddedMovie: (String) -> Unit) {
     val pagerState = rememberPagerState(
         pageCount = items.size,
         initialPage = items.size / 2
@@ -64,16 +65,18 @@ fun LastReleaseItem(items: List<Movie>) {
                     modifier = Modifier
                         .background(Color.LightGray)
                         .align(Alignment.Center)
-                        .width(160.dp)
-                        .height(220.dp)
+                        .width(180.dp)
+                        .height(250.dp)
+                        .clickable { onExecuteLastAddedMovie(movies.imdbID) }
+
                 ) {
                     Image(
                         painter = rememberAsyncImagePainter(movies.Poster),
                         contentDescription = "",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .width(160.dp)
-                            .height(220.dp)
+                            .width(180.dp)
+                            .height(250.dp)
 
                     )
 

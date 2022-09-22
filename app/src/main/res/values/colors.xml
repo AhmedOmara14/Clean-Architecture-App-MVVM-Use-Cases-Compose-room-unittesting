@@ -10,4 +10,5 @@
     <color name="back_main">#E2E2E2</color>
     <color name="back_search">#F5F5F5</color>
     <color name="border">#E3E3E3</color>
+    <color name="active_rate">#D9B804</color>
 </resources>
