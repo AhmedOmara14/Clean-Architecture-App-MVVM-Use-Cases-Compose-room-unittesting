@@ -29,14 +29,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.omaradev.movieapp.ui.theme.MovieAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import com.omaradev.movieapp.R
+import com.omaradev.movieapp.presentation.favorite.FavoriteScreen
+import com.omaradev.movieapp.presentation.home.HomeScreen
+import com.omaradev.movieapp.presentation.profile.ProfileScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private lateinit var navHostController: NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -80,7 +88,18 @@ class MainActivity : ComponentActivity() {
                             )
                         )
                 ) {
-                    Navigation(navHostController = navController)
+                    NavHost(navController = navController, startDestination = "home") {
+                        composable("home") {
+                            HomeScreen()
+                        }
+                        composable("favorite") {
+                            FavoriteScreen()
+                        }
+                        composable("profile") {
+                            ProfileScreen()
+                        }
+                    }
+
                 }
             }
 

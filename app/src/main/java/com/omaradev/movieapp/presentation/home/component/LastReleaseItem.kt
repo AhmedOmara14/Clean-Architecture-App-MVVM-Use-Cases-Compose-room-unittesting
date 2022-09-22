@@ -3,51 +3,32 @@ package com.omaradev.movieapp.presentation.home.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.util.lerp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import com.google.accompanist.pager.*
 import com.omaradev.movieapp.R
-import com.omaradev.movieapp.presentation.main.BottomNavigationItem
+import com.omaradev.movieapp.domain.model.all_movies.Movie
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun LastReleaseItem() {
-    var items = listOf(
-        BottomNavigationItem(
-            stringResource(id = R.string.home),
-            "home",
-            R.drawable.ic_home
-        ),
-        BottomNavigationItem(
-            stringResource(id = R.string.favorite),
-            "favorite",
-            R.drawable.ic_favorite
-        ),
-        BottomNavigationItem(
-            stringResource(id = R.string.profile),
-            "profile",
-            R.drawable.ic_person
-        )
-    )
+fun LastReleaseItem(items: List<Movie>) {
     val pagerState = rememberPagerState(
         pageCount = items.size,
-        initialPage = 2
+        initialPage = items.size / 2
     )
-
 
     Column(modifier = Modifier.fillMaxWidth()) {
         HorizontalPager(
@@ -78,38 +59,51 @@ fun LastReleaseItem() {
                 shape = RoundedCornerShape(20.dp)
             ) {
 
-                val newKids = items[page]
+                val movies = items[page]
                 Box(
                     modifier = Modifier
                         .background(Color.LightGray)
                         .align(Alignment.Center)
-                        .width(180.dp)
-                        .height(240.dp)
+                        .width(160.dp)
+                        .height(220.dp)
                 ) {
                     Image(
-                        painter = painterResource(
-                            id = R.drawable.download
-                        ),
-                        contentDescription = "Image",
+                        painter = rememberAsyncImagePainter(movies.Poster),
+                        contentDescription = "",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .width(180.dp)
-                            .height(240.dp)
+                            .width(160.dp)
+                            .height(220.dp)
+
                     )
 
-                    Column(
+                    Card(
+                        elevation = 4.dp,
+                        shape = RoundedCornerShape(20.dp),
                         modifier = Modifier
-                            .align(Alignment.BottomStart)
-                            .padding(15.dp)
+                            .align(Alignment.Center)
+                            .background(Color.White)
                     ) {
-                        Text(
-                            text = newKids.name,
-                            style = MaterialTheme.typography.h5,
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold
-                        )
 
                     }
+                    Card(
+                        elevation = 4.dp,
+                        shape = CircleShape,
+
+                        modifier = Modifier.align(Alignment.Center)
+                    ) {
+                        Column(modifier = Modifier.padding(10.dp)) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_play),
+                                contentDescription = "Profile",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(30.dp)
+                                    .clip(CircleShape)
+                            )
+                        }
+                    }
+
 
                 }
 

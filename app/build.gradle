@@ -94,4 +94,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager:0.13.0"
     implementation "com.google.accompanist:accompanist-pager-indicators:0.13.0"
     implementation "androidx.compose.ui:ui-util:1.2.1"
+
+    implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+
 }
