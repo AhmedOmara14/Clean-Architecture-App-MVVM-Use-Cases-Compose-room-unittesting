@@ -88,6 +88,7 @@ fun HomeScreen(
                 ) {
                     Row(
                         Modifier
+                            .clickable { navHostController.navigate(Screens.SearchScreen.route) }
                             .fillMaxWidth()
                             .background(colorResource(id = R.color.back_search))
                             .padding(all = 10.dp)
@@ -126,7 +127,7 @@ fun HomeScreen(
             item {
                 listMoviesLastAddedState.allMoviesResponse?.movies?.let {
                     LastReleaseItem(
-                        items = it, onExecuteLastAddedMovie = {
+                        items = it, onExecuteMovie = {
                             navHostController.navigate(Screens.DetailsScreen.withArgs(it))
                         }
                     )
@@ -157,7 +158,9 @@ fun HomeScreen(
             item {
                 listMoviesByCategoryState.allMoviesResponse?.movies?.let {
                     ListOfMoviesOfCategoryItem(
-                        moviesList = it
+                        moviesList = it, onExecuteMovie = {
+                            navHostController.navigate(Screens.DetailsScreen.withArgs(it))
+                        }
                     )
                 }
             }

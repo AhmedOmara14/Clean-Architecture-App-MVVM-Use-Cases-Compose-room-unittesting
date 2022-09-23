@@ -25,7 +25,7 @@ import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun LastReleaseItem(items: List<Movie>, onExecuteLastAddedMovie: (String) -> Unit) {
+fun LastReleaseItem(items: List<Movie>, onExecuteMovie: (String) -> Unit) {
     val pagerState = rememberPagerState(
         pageCount = items.size,
         initialPage = items.size / 2
@@ -67,7 +67,7 @@ fun LastReleaseItem(items: List<Movie>, onExecuteLastAddedMovie: (String) -> Uni
                         .align(Alignment.Center)
                         .width(180.dp)
                         .height(250.dp)
-                        .clickable { onExecuteLastAddedMovie(movies.imdbID) }
+                        .clickable { onExecuteMovie(movies.imdbID) }
 
                 ) {
                     Image(

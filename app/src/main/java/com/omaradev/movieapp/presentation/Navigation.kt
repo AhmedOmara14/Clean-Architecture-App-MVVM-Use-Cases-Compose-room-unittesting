@@ -11,6 +11,7 @@ import com.omaradev.movieapp.presentation.home.HomeScreen
 import com.omaradev.movieapp.presentation.movie_details.MovieDetailsScreen
 import com.omaradev.movieapp.presentation.navigation.Screens
 import com.omaradev.movieapp.presentation.profile.ProfileScreen
+import com.omaradev.movieapp.presentation.search.SearchScreen
 
 @Composable
 fun Navigation(navHostController: NavHostController) {
@@ -24,6 +25,9 @@ fun Navigation(navHostController: NavHostController) {
         composable("profile") {
             ProfileScreen()
         }
+        composable(route = Screens.SearchScreen.route) {
+            SearchScreen()
+        }
         composable(
             route = Screens.DetailsScreen.route + "/{imdbID}", arguments = listOf(
                 navArgument("imdbID") {
@@ -33,7 +37,10 @@ fun Navigation(navHostController: NavHostController) {
                 }
             )
         ) {
-            MovieDetailsScreen(imdbID = it.arguments?.getString("imdbID"))
+            MovieDetailsScreen(
+                imdbID = it.arguments?.getString("imdbID"),
+                navHostController = navHostController
+            )
         }
     }
 }

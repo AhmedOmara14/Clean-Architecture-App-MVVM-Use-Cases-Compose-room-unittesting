@@ -1,10 +1,11 @@
-package com.omaradev.movieapp.presentation.home.component
+package com.omaradev.movieapp.presentation.movie_details.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -15,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -28,29 +28,21 @@ import coil.compose.rememberAsyncImagePainter
 import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.google.accompanist.flowlayout.SizeMode
-import com.gowtham.ratingbar.RatingBar
-import com.gowtham.ratingbar.RatingBarConfig
-import com.gowtham.ratingbar.RatingBarStyle
-import com.gowtham.ratingbar.StepSize
-import com.omaradev.movieapp.domain.model.all_movies.Movie
+import com.omaradev.movieapp.presentation.movie_details.MovieCast
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListOfMoviesOfCategoryItem(
-    moviesList: List<Movie>, onExecuteMovie: (String) -> Unit
+fun CastMovieItem(
+    moviesList: List<MovieCast>
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 15.dp, bottom = 90.dp)
+            .padding(start = 15.dp, bottom = 90.dp)
     ) {
-        FlowRow(
-            mainAxisAlignment = MainAxisAlignment.Center,
-            mainAxisSize = SizeMode.Expand,
-            crossAxisSpacing = 3.dp,
-            mainAxisSpacing = 3.dp
+        LazyRow(
         ) {
-            moviesList.forEachIndexed { _, movies ->
+            items(moviesList){movies->
                 Column(modifier = Modifier.padding(end = 5.dp, bottom = 10.dp)) {
                     Card(
                         shape = RoundedCornerShape(20.dp),
@@ -61,41 +53,24 @@ fun ListOfMoviesOfCategoryItem(
                                 .background(Color.LightGray)
                                 .wrapContentHeight()
                                 .wrapContentWidth()
-                                .clickable { onExecuteMovie(movies.imdbID) }
 
                         ) {
                             Image(
-                                painter = rememberAsyncImagePainter(movies.Poster),
+                                painter = rememberAsyncImagePainter(movies.img),
                                 contentDescription = "",
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
-                                    .width(170.dp)
-                                    .height(220.dp)
+                                    .width(90.dp)
+                                    .height(90.dp)
                             )
 
-                            Card(
-                                elevation = 4.dp,
-                                shape = CircleShape,
-                                modifier = Modifier.align(Alignment.Center)
-                            ) {
-                                Column(modifier = Modifier.padding(10.dp)) {
-                                    Image(
-                                        painter = painterResource(id = R.drawable.ic_play),
-                                        contentDescription = "Profile",
-                                        contentScale = ContentScale.Crop,
-                                        modifier = Modifier
-                                            .size(30.dp)
-                                            .clip(CircleShape)
-                                    )
-                                }
-                            }
 
 
                         }
 
                     }
                     Text(
-                        movies.Title,
+                        movies.name,
                         textAlign = TextAlign.Start,
                         maxLines = 1,
                         modifier = Modifier
@@ -104,7 +79,7 @@ fun ListOfMoviesOfCategoryItem(
                                 bottom = 5.dp,
                                 end = 12.dp
                             )
-                            .width(150.dp),
+                            .width(90.dp),
                         style = TextStyle(
                             fontSize = 14.sp,
                             color = Color.Black,
@@ -114,23 +89,11 @@ fun ListOfMoviesOfCategoryItem(
 
                         )
                     )
-                    RatingBar(
-                        value = 2.5f,
-                        config = RatingBarConfig()
-                            .activeColor(colorResource(id = R.color.active_rate))
-                            .inactiveColor(Color.Gray)
-                            .stepSize(StepSize.HALF)
-                            .numStars(5)
-                            .size(20.dp)
-                            .padding(4.dp)
-                            .style(RatingBarStyle.Normal),
-                        onValueChange = {
-                        },
-                        onRatingChanged = {
-                        }
-                    )
+
                 }
+
             }
+
         }
     }
 
