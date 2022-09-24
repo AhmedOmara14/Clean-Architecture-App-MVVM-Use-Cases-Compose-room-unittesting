@@ -26,7 +26,7 @@ fun Navigation(navHostController: NavHostController) {
             ProfileScreen()
         }
         composable(route = Screens.SearchScreen.route) {
-            SearchScreen()
+            SearchScreen(navHostController = navHostController)
         }
         composable(
             route = Screens.DetailsScreen.route + "/{imdbID}", arguments = listOf(

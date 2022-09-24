@@ -18,7 +18,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -33,9 +32,7 @@ import com.gowtham.ratingbar.RatingBarConfig
 import com.gowtham.ratingbar.RatingBarStyle
 import com.gowtham.ratingbar.StepSize
 import com.omaradev.movieapp.R
-import com.omaradev.movieapp.common.Constants
 import com.omaradev.movieapp.domain.model.movie_details.MovieDetails
-import com.omaradev.movieapp.presentation.home.component.CategoryItem
 import com.omaradev.movieapp.presentation.movie_details.component.CastMovieItem
 
 @Composable
@@ -76,26 +73,28 @@ fun MovieDetailsScreen(
                     .fillMaxWidth()
                     .padding(start = 15.dp, end = 15.dp)
             ) {
-                Text(
-                    movieDetails?.Title.toString(),
-                    textAlign = TextAlign.Start,
-                    maxLines = 1,
-                    modifier = Modifier
-                        .padding(
-                            top = 5.dp,
-                            bottom = 5.dp,
-                            end = 12.dp
-                        )
-                        .width(150.dp),
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        color = Color.Black,
-                        fontFamily = FontFamily(
-                            Font(R.font.font_bold)
-                        )
+                movieDetails?.Title?.let {
+                    Text(
+                        it,
+                        textAlign = TextAlign.Start,
+                        maxLines = 1,
+                        modifier = Modifier
+                            .padding(
+                                top = 5.dp,
+                                bottom = 5.dp,
+                                end = 12.dp
+                            )
+                            .width(150.dp),
+                        style = TextStyle(
+                            fontSize = 16.sp,
+                            color = Color.Black,
+                            fontFamily = FontFamily(
+                                Font(R.font.font_bold)
+                            )
 
+                        )
                     )
-                )
+                }
                 Image(
                     painter = painterResource(id = R.drawable.ic_baseline_add),
                     contentDescription = ""
@@ -128,19 +127,21 @@ fun MovieDetailsScreen(
                     .fillMaxWidth()
                     .padding(start = 15.dp, end = 15.dp)
             ) {
-                Text(
-                    movieDetails?.Runtime.toString(),
-                    textAlign = TextAlign.Start,
-                    maxLines = 1,
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        color = Color.Black,
-                        fontFamily = FontFamily(
-                            Font(R.font.font_bold)
-                        )
+                movieDetails?.Runtime?.let {
+                    Text(
+                        it,
+                        textAlign = TextAlign.Start,
+                        maxLines = 1,
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            color = Color.Black,
+                            fontFamily = FontFamily(
+                                Font(R.font.font_bold)
+                            )
 
+                        )
                     )
-                )
+                }
                 Spacer(modifier = Modifier.width(5.dp))
                 Card(modifier = Modifier.size(5.dp),
                     shape = RoundedCornerShape(50)) {
@@ -148,26 +149,28 @@ fun MovieDetailsScreen(
                 }
                 Spacer(modifier = Modifier.width(5.dp))
 
-                Text(
-                    movieDetails?.Genre.toString(),
-                    textAlign = TextAlign.Start,
-                    maxLines = 1,
-                    modifier = Modifier
-                        .padding(
-                            top = 5.dp,
-                            bottom = 5.dp,
-                            end = 12.dp
-                        )
-                        .width(150.dp),
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        color = Color.Black,
-                        fontFamily = FontFamily(
-                            Font(R.font.font_bold)
-                        )
+                movieDetails?.Genre?.let {
+                    Text(
+                        it,
+                        textAlign = TextAlign.Start,
+                        maxLines = 1,
+                        modifier = Modifier
+                            .padding(
+                                top = 5.dp,
+                                bottom = 5.dp,
+                                end = 12.dp
+                            )
+                            .width(150.dp),
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            color = Color.Black,
+                            fontFamily = FontFamily(
+                                Font(R.font.font_bold)
+                            )
 
+                        )
                     )
-                )
+                }
 
 
             }
@@ -193,25 +196,27 @@ fun MovieDetailsScreen(
                 )
             )
             Spacer(modifier = Modifier.width(5.dp))
-            Text(text = movieDetails?.Plot.toString(),
-                textAlign = TextAlign.Start,
-                modifier = Modifier
-                    .padding(
-                        top = 5.dp,
-                        start = 15.dp,
-                        bottom = 5.dp,
-                        end = 15.dp
-                    )
-                    .fillMaxWidth(),
-                style = TextStyle(
-                    fontSize = 15.sp,
-                    color = Color.Black,
-                    fontFamily = FontFamily(
-                        Font(R.font.font_regular)
-                    )
+            movieDetails?.Plot?.let {
+                Text(text = it,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier
+                        .padding(
+                            top = 5.dp,
+                            start = 15.dp,
+                            bottom = 5.dp,
+                            end = 15.dp
+                        )
+                        .fillMaxWidth(),
+                    style = TextStyle(
+                        fontSize = 15.sp,
+                        color = Color.Black,
+                        fontFamily = FontFamily(
+                            Font(R.font.font_regular)
+                        )
 
+                    )
                 )
-            )
+            }
 
 
             Spacer(modifier = Modifier.width(5.dp))

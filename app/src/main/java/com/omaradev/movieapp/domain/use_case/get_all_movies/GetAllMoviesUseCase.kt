@@ -10,7 +10,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class GetAllMoviesLastAddedUseCase @Inject constructor(val repository: Repository) {
+class GetAllMoviesUseCase @Inject constructor(val repository: Repository) {
     operator fun invoke(
         movie: String,
         apikey: String,
@@ -18,7 +18,7 @@ class GetAllMoviesLastAddedUseCase @Inject constructor(val repository: Repositor
     ): Flow<Resource<AllMoviesResponse>> = flow {
         try {
             emit(Resource.Loading<AllMoviesResponse>())
-            val movies = repository.getMovies(movie, apikey, page).toMovie()
+            val movies = repository.getMovies(movie, apikey, page)?.toMovie()
             emit(Resource.Success<AllMoviesResponse>(movies))
 
         } catch (e: HttpException) {

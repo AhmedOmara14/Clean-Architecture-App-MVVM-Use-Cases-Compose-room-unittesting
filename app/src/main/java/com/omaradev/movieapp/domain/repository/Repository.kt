@@ -7,7 +7,7 @@ import com.omaradev.movieapp.data.remote.dto.movie_details.MovieDetailsAto
 interface Repository {
     suspend fun getMovies(
         movie: String, apikey: String, page: Int
-    ): AllMoviesDto
+    ): AllMoviesDto?
 
     suspend fun getMovieDetailsById(imdbID:String ,apikey: String) :MovieDetailsAto?
 }

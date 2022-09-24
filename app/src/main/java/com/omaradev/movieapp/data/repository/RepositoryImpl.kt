@@ -7,7 +7,7 @@ import com.omaradev.movieapp.domain.repository.Repository
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(val api: Api) : Repository {
-    override suspend fun getMovies(movie: String, apikey: String, page: Int): AllMoviesDto {
+    override suspend fun getMovies(movie: String, apikey: String, page: Int): AllMoviesDto? {
         return api.getMovies(movie, apikey, page)
     }
 

@@ -12,7 +12,7 @@ interface Api {
         @Query("s") movie: String,
         @Query("apikey") apikey: String,
         @Query("page") page: Int
-    ): AllMoviesDto
+    ): AllMoviesDto?
 
     @GET(".")
     suspend fun getMovieDetailsById(

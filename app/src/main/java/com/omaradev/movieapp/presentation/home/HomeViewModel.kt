@@ -8,13 +8,13 @@ import androidx.lifecycle.viewModelScope
 import com.omaradev.movieapp.common.Constants
 import com.omaradev.movieapp.common.Resource
 import javax.inject.Inject
-import com.omaradev.movieapp.domain.use_case.get_all_movies.GetAllMoviesLastAddedUseCase
+import com.omaradev.movieapp.domain.use_case.get_all_movies.GetAllMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(val getAllMoviesLastAddedUseCase: GetAllMoviesLastAddedUseCase) :
+class HomeViewModel @Inject constructor(val getAllMoviesUseCase: GetAllMoviesUseCase) :
     ViewModel() {
 
     private val _state = mutableStateOf(ListMoviesLastAddedState())
@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(val getAllMoviesLastAddedUseCase: GetAll
     }
 
     private fun getListMoviesAdded() {
-        getAllMoviesLastAddedUseCase("Adventure", Constants.API_TOKEN, 1).onEach { response ->
+        getAllMoviesUseCase("Adventure", Constants.API_TOKEN, 1).onEach { response ->
             when (response) {
                 is Resource.Loading -> {
                     _state.value = ListMoviesLastAddedState(isLoading = true)
@@ -57,7 +57,7 @@ class HomeViewModel @Inject constructor(val getAllMoviesLastAddedUseCase: GetAll
         apikey: String,
         page: Int
     ) {
-        getAllMoviesLastAddedUseCase(movie, apikey, page).onEach { response ->
+        getAllMoviesUseCase(movie, apikey, page).onEach { response ->
             when (response) {
                 is Resource.Loading -> {
                     _listMoviesByCategoryState.value = ListMoviesLastAddedState(isLoading = true)

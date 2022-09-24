@@ -5,12 +5,14 @@ import com.omaradev.movieapp.domain.model.all_movies.AllMoviesResponse
 import com.omaradev.movieapp.domain.model.all_movies.Movie
 
 data class AllMoviesDto(
+    val Response: String?,
     @SerializedName("Search")
     val movies: ArrayList<Movie>,
 )
 
-fun AllMoviesDto.toMovie() :AllMoviesResponse{
+fun AllMoviesDto.toMovie() :AllMoviesResponse?{
     return AllMoviesResponse(
+        Response,
         movies
     )
 
