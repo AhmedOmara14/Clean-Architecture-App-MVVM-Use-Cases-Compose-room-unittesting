@@ -4,13 +4,15 @@ Movies App represent a list of movies, list of categories, search about movie an
 
 # Main Features
 1. Kotlin
-1. MVVM
-1. Jetpack Compose
-1. MutableState
-1. Hilt
-1. Navigation Components
-1. Retrofit2
-1. Pagination
+2. MVVM
+3. Jetpack Compose
+4. MutableState
+5. Use Case
+6. Hilt
+7. Navigation Components
+8. Retrofit2
+9. Pagination
+10. Room
 
 
 # Compose features
