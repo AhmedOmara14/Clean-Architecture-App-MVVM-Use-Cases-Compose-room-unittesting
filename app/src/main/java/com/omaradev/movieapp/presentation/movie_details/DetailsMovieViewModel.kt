@@ -9,9 +9,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omaradev.movieapp.common.Constants
 import com.omaradev.movieapp.common.Resource
+import com.omaradev.movieapp.domain.model.all_movies.Movie
 import com.omaradev.movieapp.domain.use_case.get_details_movie.GetDetailsMovieUseCase
-import com.omaradev.movieapp.presentation.home.ListMoviesLastAddedState
-import com.omaradev.movieapp.presentation.home.MovieCategory
+import com.omaradev.movieapp.domain.use_case.get_movie_local.GetLocalMoviesUseCase
+import com.omaradev.movieapp.domain.use_case.insert_movie.InsertMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -21,7 +22,9 @@ import javax.inject.Inject
 class DetailsMovieViewModel
 @Inject constructor(
     val getDetailsMovieUseCase: GetDetailsMovieUseCase,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    val insertMovieUseCase: InsertMovieUseCase,
+    val getLocalMoviesUseCase: GetLocalMoviesUseCase
 ) :
     ViewModel() {
 
@@ -54,4 +57,18 @@ class DetailsMovieViewModel
             }
         }.launchIn(viewModelScope)
     }
+
+    fun insertMovie(movie: Movie) {
+        insertMovieUseCase(movie)
+    }
+    fun getLocalMovie() {
+        getLocalMoviesUseCase().onEach { response ->
+            when (response) {
+                is Resource.Success -> {
+                    Log.d("TAG", "getLocalMovie: "+response.data?.size)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
 }

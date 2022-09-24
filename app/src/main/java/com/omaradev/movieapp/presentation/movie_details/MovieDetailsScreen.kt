@@ -1,12 +1,9 @@
 package com.omaradev.movieapp.presentation.movie_details
 
 import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
@@ -32,6 +29,7 @@ import com.gowtham.ratingbar.RatingBarConfig
 import com.gowtham.ratingbar.RatingBarStyle
 import com.gowtham.ratingbar.StepSize
 import com.omaradev.movieapp.R
+import com.omaradev.movieapp.domain.model.all_movies.Movie
 import com.omaradev.movieapp.domain.model.movie_details.MovieDetails
 import com.omaradev.movieapp.presentation.movie_details.component.CastMovieItem
 
@@ -97,7 +95,19 @@ fun MovieDetailsScreen(
                 }
                 Image(
                     painter = painterResource(id = R.drawable.ic_baseline_add),
-                    contentDescription = ""
+                    contentDescription = "",
+                    modifier = Modifier.clickable {
+                        val movie = Movie(
+                            Poster = movieDetails?.Poster + "",
+                            Title = movieDetails?.Title + "",
+                            Type = movieDetails?.Type + "",
+                            Year = movieDetails?.Year + "",
+                            imdbID = movieDetails?.imdbID + ""
+                        )
+                        viewModel.insertMovie(movie)
+                        Toast.makeText(context,"Movies is Added to Download",Toast.LENGTH_SHORT).show()
+                        viewModel.getLocalMovie()
+                    }
                 )
             }
 
@@ -143,8 +153,10 @@ fun MovieDetailsScreen(
                     )
                 }
                 Spacer(modifier = Modifier.width(5.dp))
-                Card(modifier = Modifier.size(5.dp),
-                    shape = RoundedCornerShape(50)) {
+                Card(
+                    modifier = Modifier.size(5.dp),
+                    shape = RoundedCornerShape(50)
+                ) {
                     Text(text = "", modifier = Modifier.background(Color.Gray))
                 }
                 Spacer(modifier = Modifier.width(5.dp))
@@ -176,7 +188,8 @@ fun MovieDetailsScreen(
             }
             Spacer(modifier = Modifier.width(5.dp))
 
-            Text(text = "Plot",
+            Text(
+                text = "Plot",
                 textAlign = TextAlign.Start,
                 modifier = Modifier
                     .padding(
@@ -197,7 +210,8 @@ fun MovieDetailsScreen(
             )
             Spacer(modifier = Modifier.width(5.dp))
             movieDetails?.Plot?.let {
-                Text(text = it,
+                Text(
+                    text = it,
                     textAlign = TextAlign.Start,
                     modifier = Modifier
                         .padding(
@@ -221,7 +235,8 @@ fun MovieDetailsScreen(
 
             Spacer(modifier = Modifier.width(5.dp))
 
-            Text(text = "Cast",
+            Text(
+                text = "Cast",
                 textAlign = TextAlign.Start,
                 modifier = Modifier
                     .padding(

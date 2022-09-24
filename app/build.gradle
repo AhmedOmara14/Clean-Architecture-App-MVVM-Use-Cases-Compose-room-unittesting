@@ -101,4 +101,7 @@ dependencies {
     //RatingBar
     implementation 'com.github.a914-gowtham:compose-ratingbar:1.2.3'
 
+    //Room
+    implementation 'androidx.room:room-runtime:2.4.0-alpha02'
+    kapt 'androidx.room:room-compiler:2.4.0-alpha02'
 }

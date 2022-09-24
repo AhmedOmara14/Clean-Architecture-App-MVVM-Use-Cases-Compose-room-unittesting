@@ -1,5 +1,8 @@
 package com.omaradev.movieapp.di
+import android.app.Application
+import androidx.room.Room
 import com.omaradev.movieapp.common.Constants.BASE_URL
+import com.omaradev.movieapp.data.local.MovieDB
 import com.omaradev.movieapp.data.remote.Api
 import com.omaradev.movieapp.data.repository.RepositoryImpl
 import com.omaradev.movieapp.domain.repository.Repository
@@ -26,9 +29,18 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRepository(api: Api):Repository{
-        return RepositoryImpl(api)
+    fun provideRepository(api: Api,db: MovieDB):Repository{
+        return RepositoryImpl(api, db = db)
     }
 
+    @Provides
+    @Singleton
+    fun provideDatabase(app: Application): MovieDB {
+        return Room.databaseBuilder(
+            app,
+            MovieDB::class.java,
+            MovieDB.DATABASE_NAME
+        ).allowMainThreadQueries().build()
+    }
 
 }

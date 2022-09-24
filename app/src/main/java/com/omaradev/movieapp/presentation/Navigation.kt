@@ -6,11 +6,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
-import com.omaradev.movieapp.presentation.favorite.FavoriteScreen
+import com.omaradev.movieapp.presentation.download.DownloadScreen
 import com.omaradev.movieapp.presentation.home.HomeScreen
 import com.omaradev.movieapp.presentation.movie_details.MovieDetailsScreen
 import com.omaradev.movieapp.presentation.navigation.Screens
-import com.omaradev.movieapp.presentation.profile.ProfileScreen
 import com.omaradev.movieapp.presentation.search.SearchScreen
 
 @Composable
@@ -19,11 +18,8 @@ fun Navigation(navHostController: NavHostController) {
         composable(route = Screens.HomeScreen.route) {
             HomeScreen(navHostController = navHostController)
         }
-        composable(route = Screens.FavoriteScreen.route) {
-            FavoriteScreen()
-        }
-        composable("profile") {
-            ProfileScreen()
+        composable(route = Screens.DownloadScreen.route) {
+            DownloadScreen(navHostController = navHostController)
         }
         composable(route = Screens.SearchScreen.route) {
             SearchScreen(navHostController = navHostController)

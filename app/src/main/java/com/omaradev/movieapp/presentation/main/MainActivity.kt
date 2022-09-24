@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -47,15 +48,10 @@ class MainActivity : ComponentActivity() {
                                 R.drawable.ic_home
                             ),
                             BottomNavigationItem(
-                                stringResource(id = R.string.favorite),
-                                Screens.FavoriteScreen.route,
-                                R.drawable.ic_favorite
+                                stringResource(id = R.string.download),
+                                Screens.DownloadScreen.route,
+                                R.drawable.ic_baseline_add
                             ),
-                            BottomNavigationItem(
-                                stringResource(id = R.string.profile),
-                                "profile",
-                                R.drawable.ic_person
-                            )
                         ),
                         onItemClick = { navController.navigate(route = it.route) },
                         modifier = Modifier
@@ -106,7 +102,11 @@ fun BottomNavigationBar(
                 unselectedContentColor = Color.Black,
                 icon = {
                     Column {
-                        Icon(painterResource(id = it.icon), contentDescription = it.name)
+                        Icon(
+                            painterResource(id = it.icon),
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            contentDescription = it.name
+                        )
                         Text(
                             text = it.name,
                             textAlign = TextAlign.Start,
