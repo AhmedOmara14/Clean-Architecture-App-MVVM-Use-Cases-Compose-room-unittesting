@@ -1,12 +1,14 @@
 package com.omaradev.movieapp.presentation.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +24,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -79,13 +82,16 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BottomNavigationBar(
     items: List<BottomNavigationItem>,
     navController: NavController,
     modifier: Modifier,
-    onItemClick: (BottomNavigationItem) -> Unit
+    onItemClick: (BottomNavigationItem) -> Unit,
+    viewModel: MainViewModel = hiltViewModel()
 ) {
+    val state = viewModel.state.value
     BottomNavigation(
         modifier = modifier,
         colorResource(id = R.color.white),
@@ -101,12 +107,26 @@ fun BottomNavigationBar(
                 selectedContentColor = colorResource(id = R.color.purple_200),
                 unselectedContentColor = Color.Black,
                 icon = {
-                    Column {
-                        Icon(
-                            painterResource(id = it.icon),
-                            modifier = Modifier.align(Alignment.CenterHorizontally),
-                            contentDescription = it.name
-                        )
+                    Column(modifier = Modifier.padding(top=10.dp)) {
+                        if (it.route == Screens.DownloadScreen.route) {
+                            BadgeBox(
+                                badgeContent = {
+                                    Text(text = state.numberOfDownloads ?: "0")
+                                }
+                            ) {
+                                Icon(
+                                    painterResource(id = it.icon),
+                                    modifier=Modifier.align(Alignment.Center),
+                                    contentDescription = it.name
+                                )
+                            }
+                        }else{
+                            Icon(
+                                painterResource(id = it.icon),
+                                contentDescription = it.name
+                            )
+                        }
+
                         Text(
                             text = it.name,
                             textAlign = TextAlign.Start,
