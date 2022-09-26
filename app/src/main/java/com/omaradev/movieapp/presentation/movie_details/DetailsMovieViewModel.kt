@@ -61,14 +61,6 @@ class DetailsMovieViewModel
     fun insertMovie(movie: Movie) {
         insertMovieUseCase(movie)
     }
-    fun getLocalMovie() {
-        getLocalMoviesUseCase().onEach { response ->
-            when (response) {
-                is Resource.Success -> {
-                    Log.d("TAG", "getLocalMovie: "+response.data?.size)
-                }
-            }
-        }.launchIn(viewModelScope)
-    }
+
 
 }

@@ -1,10 +1,12 @@
 package com.omaradev.movieapp.presentation.download
 
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -22,10 +24,12 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.omaradev.movieapp.R
+import com.omaradev.movieapp.presentation.download.component.DownloadItem
 import com.omaradev.movieapp.presentation.navigation.Screens
-import com.omaradev.movieapp.presentation.search.component.SearchResult
+import kotlin.math.abs
 
-@OptIn(ExperimentalFoundationApi::class)
+@RequiresApi(Build.VERSION_CODES.N)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun DownloadScreen(
     viewModel: DownloadViewModel = hiltViewModel(),
@@ -73,17 +77,63 @@ fun DownloadScreen(
             } else {
                 allMoviesState.allMovies.let {
                     it.let { it1 ->
-                        LazyVerticalGrid(
-                            cells = GridCells.Fixed(2),
+                        LazyColumn(
                             modifier = Modifier.padding(20.dp)
                         ) {
                             itemsIndexed(it1) { index, movie ->
-                                SearchResult(
-                                    movies = movie, onExecuteMovie = {
-                                        navHostController.navigate(
-                                            Screens.DetailsScreen.withArgs(
-                                                it
-                                            )
+                                val dismissState = rememberDismissState(
+                                    confirmStateChange = {
+                                        if (it == DismissValue.DismissedToStart) {
+                                            viewModel.deleteMovie(movie.imdbID)
+                                            viewModel.getLocalMovie()
+                                        }
+                                        true
+                                    }
+                                )
+
+
+                                SwipeToDismiss(
+                                    state = dismissState,
+                                    background = {
+                                        val color = when (dismissState.dismissDirection) {
+                                            DismissDirection.StartToEnd -> {
+                                                Color.Transparent
+                                            }
+                                            DismissDirection.EndToStart -> {
+                                                val r = 1f
+                                                var g =
+                                                    1f - (abs(dismissState.offset.value) / 255f) * 0.5f
+                                                var b =
+                                                    1f - (abs(dismissState.offset.value) / 255f) * 0.5f
+
+                                                if (g <= 0f) {
+                                                    g = 0f
+                                                }
+                                                if (b <= 0f) {
+                                                    b = 0f
+                                                }
+                                                Color(red = r, green = g, blue = b)
+                                            }
+                                            else -> {
+                                                Color.Transparent
+                                            }
+                                        }
+                                        Box(
+                                            modifier = Modifier
+                                                .fillMaxSize()
+                                                .background(color = color)
+                                        )
+                                    },
+                                    directions = setOf(DismissDirection.EndToStart),
+                                    dismissContent = {
+                                        DownloadItem(
+                                            movies = movie, onExecuteMovie = {
+                                                navHostController.navigate(
+                                                    Screens.DetailsScreen.withArgs(
+                                                        it
+                                                    )
+                                                )
+                                            }
                                         )
                                     }
                                 )
