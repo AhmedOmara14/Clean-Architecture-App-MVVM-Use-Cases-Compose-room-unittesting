@@ -41,6 +41,7 @@ fun MovieDetailsScreen(
 ) {
     val detailsMovieState = viewModel.detailsMovieState.value
     val movieDetails: MovieDetails? = detailsMovieState.movieDetails
+    val allMovies: ArrayList<Movie>? = viewModel.allMoviesState.value.allMovies
     val context = LocalContext.current
 
     Box() {
@@ -104,6 +105,13 @@ fun MovieDetailsScreen(
                             Year = movieDetails?.Year + "",
                             imdbID = movieDetails?.imdbID + ""
                         )
+                        for(movie_ in allMovies!!){
+                            if (movie_.imdbID == movie.imdbID){
+                                Toast.makeText(context,"Movies is Already Added to Download",Toast.LENGTH_SHORT).show()
+                                return@clickable
+                            }
+                        }
+
                         viewModel.insertMovie(movie)
                         Toast.makeText(context,"Movies is Added to Download",Toast.LENGTH_SHORT).show()
 
