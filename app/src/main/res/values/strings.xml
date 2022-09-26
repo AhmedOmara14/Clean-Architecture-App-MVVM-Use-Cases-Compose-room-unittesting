@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Movie App</string>
-
     <string name="home">Home</string>
     <string name="download">Download</string>
 

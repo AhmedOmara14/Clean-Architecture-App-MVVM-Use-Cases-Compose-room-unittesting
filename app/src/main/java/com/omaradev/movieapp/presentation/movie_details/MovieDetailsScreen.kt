@@ -31,16 +31,13 @@ import com.gowtham.ratingbar.StepSize
 import com.omaradev.movieapp.R
 import com.omaradev.movieapp.domain.model.all_movies.Movie
 import com.omaradev.movieapp.domain.model.movie_details.MovieDetails
-import com.omaradev.movieapp.presentation.main.MainActivity
-import com.omaradev.movieapp.presentation.main.MainViewModel
 import com.omaradev.movieapp.presentation.movie_details.component.CastMovieItem
 
 @Composable
 fun MovieDetailsScreen(
     navHostController: NavHostController,
     imdbID: String?,
-    viewModel: DetailsMovieViewModel = hiltViewModel(),
-    viewModel_: MainViewModel = hiltViewModel()
+    viewModel: DetailsMovieViewModel = hiltViewModel()
 ) {
     val detailsMovieState = viewModel.detailsMovieState.value
     val movieDetails: MovieDetails? = detailsMovieState.movieDetails
