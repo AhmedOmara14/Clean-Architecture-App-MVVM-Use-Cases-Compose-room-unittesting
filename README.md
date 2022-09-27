@@ -14,7 +14,6 @@ Movies App represent a list of movies, list of categories, search about movie an
 9. Pagination
 10. Room
 
-
 # Compose features
 
 1. Bottom Navigation
