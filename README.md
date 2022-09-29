@@ -21,8 +21,7 @@ Movies App represent a list of movies, list of categories, search about movie an
 3. Lazy Row
 4. FlowRow
 5. Colors
-6. LazyRow
+6. Circular Progress Indicator
 7. Rows
 8. Columns
 9. Scaffold
-10. Circular Progress Indicator
