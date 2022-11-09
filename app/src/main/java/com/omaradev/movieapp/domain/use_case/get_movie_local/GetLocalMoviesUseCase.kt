@@ -1,8 +1,6 @@
 package com.omaradev.movieapp.domain.use_case.get_movie_local
 
 import com.omaradev.movieapp.common.Resource
-import com.omaradev.movieapp.data.remote.dto.all_movies.toMovie
-import com.omaradev.movieapp.domain.model.all_movies.AllMoviesResponse
 import com.omaradev.movieapp.domain.model.all_movies.Movie
 import com.omaradev.movieapp.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow

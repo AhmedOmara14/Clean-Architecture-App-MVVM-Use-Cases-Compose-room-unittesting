@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class AllMoviesResponse(
     val Response: String?,
     @SerializedName("Search")
-    var movies: ArrayList<Movie>?
+    var movies: List<Movie>?
 )

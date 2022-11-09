@@ -1,7 +1,6 @@
 package com.omaradev.movieapp.domain.model.movie_details
 
 data class MovieDetails(
-
     val Actors: String?,
     val Awards: String?,
     val Country: String?,

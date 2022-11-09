@@ -1,7 +1,6 @@
 package com.omaradev.movieapp.domain.use_case.get_details_movie
 
 import com.omaradev.movieapp.common.Resource
-import com.omaradev.movieapp.data.remote.dto.movie_details.toDetails
 import com.omaradev.movieapp.domain.model.movie_details.MovieDetails
 import com.omaradev.movieapp.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +12,7 @@ class GetDetailsMovieUseCase @Inject constructor(val repository: Repository) {
             Flow<Resource<MovieDetails>> = flow {
         try {
             emit(Resource.Loading<MovieDetails>())
-            val details = repository.getMovieDetailsById(imdbID, apiKey)?.toDetails()
+            val details = repository.getMovieDetailsById(imdbID, apiKey)
             emit(Resource.Success<MovieDetails>(details))
         } catch (e: retrofit2.HttpException) {
             emit(Resource.Error<MovieDetails>(e.localizedMessage ?: "an Error Occurred"))
