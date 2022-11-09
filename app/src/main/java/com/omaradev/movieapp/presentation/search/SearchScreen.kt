@@ -37,6 +37,7 @@ fun SearchScreen(
     navHostController: NavHostController
 ) {
     val searchMoviesState = viewModel.searchMoviesState.value
+
     var searchCategory by remember {
         mutableStateOf("")
     }
@@ -100,7 +101,8 @@ fun SearchScreen(
                         )
                     )
                 )
-            } else {
+            }
+            else {
                 searchMoviesState.allMoviesResponse.let {
                     it?.let { it1 ->
                         LazyVerticalGrid(

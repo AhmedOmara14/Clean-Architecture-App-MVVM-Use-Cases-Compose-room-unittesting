@@ -41,6 +41,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             Scaffold(
+
                 bottomBar = {
                     BottomNavigationBar(
                         navController = navController,

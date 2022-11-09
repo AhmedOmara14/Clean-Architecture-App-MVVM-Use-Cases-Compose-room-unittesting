@@ -18,14 +18,14 @@ class RepositoryImpl @Inject constructor(val api: Api,private val db: MovieDB) :
         return api.getMovieDetailsById(imdbID, apikey)
     }
 
-    override fun insertMovie(movie: Movie) {
+    override suspend fun insertMovie(movie: Movie) {
         db.movieDao.insert(movie)
     }
 
-    override fun deleteMovie(movieId: String) {
+    override suspend fun deleteMovie(movieId: String) {
         db.movieDao.deleteMovie(movieId)
     }
-    override fun getDownloads(): List<Movie> {
+    override suspend fun getDownloads(): List<Movie> {
         return db.movieDao.getMovies()
     }
 

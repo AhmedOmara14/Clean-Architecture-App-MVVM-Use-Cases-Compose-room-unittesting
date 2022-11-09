@@ -9,12 +9,12 @@ import com.omaradev.movieapp.domain.model.all_movies.Movie
 @Dao
 interface MovieDao {
     @Insert
-    fun insert(movie: Movie)
+    suspend fun insert(movie: Movie)
 
     @Query("delete from Download where imdbID =:imdbID")
-    fun deleteMovie(imdbID: String)
+    suspend fun deleteMovie(imdbID: String)
 
     @Query("SELECT * FROM Download")
-    fun getMovies(): List<Movie>
+    suspend fun getMovies(): List<Movie>
 
 }

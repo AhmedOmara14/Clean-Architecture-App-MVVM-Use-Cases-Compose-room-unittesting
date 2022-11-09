@@ -1,6 +1,5 @@
 package com.omaradev.movieapp.domain.use_case.get_details_movie
 
-import android.util.Log
 import com.omaradev.movieapp.common.Resource
 import com.omaradev.movieapp.data.remote.dto.movie_details.toDetails
 import com.omaradev.movieapp.domain.model.movie_details.MovieDetails

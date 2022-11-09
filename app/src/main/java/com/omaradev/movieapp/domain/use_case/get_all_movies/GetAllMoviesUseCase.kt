@@ -20,7 +20,6 @@ class GetAllMoviesUseCase @Inject constructor(val repository: Repository) {
             emit(Resource.Loading<AllMoviesResponse>())
             val movies = repository.getMovies(movie, apikey, page)?.toMovie()
             emit(Resource.Success<AllMoviesResponse>(movies))
-
         } catch (e: HttpException) {
             emit(Resource.Error<AllMoviesResponse>(e.localizedMessage ?: "an Error Occurred"))
         } catch (e: IOException) {

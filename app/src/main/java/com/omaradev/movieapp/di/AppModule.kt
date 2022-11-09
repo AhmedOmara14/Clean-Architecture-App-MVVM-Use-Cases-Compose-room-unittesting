@@ -1,4 +1,5 @@
 package com.omaradev.movieapp.di
+
 import android.app.Application
 import androidx.room.Room
 import com.omaradev.movieapp.common.Constants.BASE_URL
@@ -19,7 +20,7 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun provideRetrofit() :Api{
+    fun provideRetrofit(): Api {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -29,7 +30,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRepository(api: Api,db: MovieDB):Repository{
+    fun provideRepository(api: Api, db: MovieDB): Repository {
         return RepositoryImpl(api, db = db)
     }
 

@@ -36,6 +36,7 @@ fun DownloadScreen(
     navHostController: NavHostController
 ) {
     val allMoviesState = viewModel.allMoviesState.value
+    val deleteState = viewModel.stateDeleteMovie.value
     val context = LocalContext.current
     Box {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -85,7 +86,8 @@ fun DownloadScreen(
                                     confirmStateChange = {
                                         if (it == DismissValue.DismissedToStart) {
                                             viewModel.deleteMovie(movie.imdbID)
-                                            viewModel.getLocalMovie()
+                                            if (!deleteState.isLoading)
+                                                viewModel.getLocalMovie()
                                         }
                                         true
                                     }

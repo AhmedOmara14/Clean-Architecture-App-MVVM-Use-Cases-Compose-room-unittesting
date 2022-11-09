@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omaradev.movieapp.common.Constants
+import com.omaradev.movieapp.common.MovieState
 import com.omaradev.movieapp.common.Resource
 import com.omaradev.movieapp.domain.model.all_movies.Movie
 import com.omaradev.movieapp.domain.use_case.get_details_movie.GetDetailsMovieUseCase
@@ -28,13 +29,14 @@ class DetailsMovieViewModel
     val getLocalMoviesUseCase: GetLocalMoviesUseCase
 ) :
     ViewModel() {
-
     private val _state = mutableStateOf(DetailsMovieState())
     val detailsMovieState: State<DetailsMovieState> = _state
 
     private val _allMoviesState = mutableStateOf(DownloadMoviesState())
     val allMoviesState: State<DownloadMoviesState> = _allMoviesState
 
+    private val _addState = mutableStateOf(MovieState())
+    val addState: State<MovieState> = _addState
 
     val imdbID: MutableState<String?> = mutableStateOf(null)
 
@@ -65,7 +67,20 @@ class DetailsMovieViewModel
     }
 
     fun insertMovie(movie: Movie) {
-        insertMovieUseCase(movie)
+        insertMovieUseCase(movie).onEach { response ->
+            when (response) {
+                is Resource.Success -> {
+                    _addState.value = MovieState(isLoading = false)
+                }
+                is Resource.Error -> {
+                    _addState.value =
+                        MovieState(error = response.message ?: "unexpected error")
+                }
+                is Resource.Loading -> {
+                    _addState.value = MovieState(isLoading = true)
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
     fun getLocalMovie() {
@@ -87,6 +102,5 @@ class DetailsMovieViewModel
             }
         }.launchIn(viewModelScope)
     }
-
 
 }

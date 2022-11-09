@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.omaradev.movieapp.common.MovieState
 import com.omaradev.movieapp.common.Resource
 import com.omaradev.movieapp.domain.model.all_movies.Movie
 import com.omaradev.movieapp.domain.use_case.delete_movie.DeleteMovieUseCase
@@ -25,11 +26,14 @@ class DownloadViewModel
     private val _state = mutableStateOf(DownloadMoviesState())
     val allMoviesState: State<DownloadMoviesState> = _state
 
+    private val _stateDeleteMovie = mutableStateOf(MovieState())
+    val stateDeleteMovie: State<MovieState> = _stateDeleteMovie
+
     init {
         getLocalMovie()
     }
 
-     fun getLocalMovie() {
+    fun getLocalMovie() {
         getLocalMoviesUseCase().onEach { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -50,7 +54,20 @@ class DownloadViewModel
     }
 
     public fun deleteMovie(movieId: String) {
-        deleteMovieUseCase(movieId)
+        deleteMovieUseCase(movieId).onEach { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    _stateDeleteMovie.value = MovieState(isLoading = true)
+                }
+                is Resource.Success -> {
+                    _stateDeleteMovie.value = MovieState(isLoading = false)
+                }
+                is Resource.Error -> {
+                    _stateDeleteMovie.value =
+                        MovieState(error = response.message ?: "unexpected error")
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
 }

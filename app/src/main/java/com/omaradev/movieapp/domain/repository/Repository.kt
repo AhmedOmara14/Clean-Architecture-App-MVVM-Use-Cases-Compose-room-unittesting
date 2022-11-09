@@ -13,8 +13,8 @@ interface Repository {
 
     suspend fun getMovieDetailsById(imdbID: String, apikey: String): MovieDetailsAto?
 
-    fun insertMovie(movie: Movie)
-    fun deleteMovie(movieId: String)
-    fun getDownloads(): List<Movie>?
+    suspend fun insertMovie(movie: Movie)
+    suspend fun deleteMovie(movieId: String)
+    suspend fun getDownloads(): List<Movie>?
 
 }
