@@ -21,12 +21,12 @@ class FakeRepository : Repository {
     }
 
     override suspend fun insertMovie(movie: Movie) {
-        movies.add(movie)
+        allDownloads.add(movie)
     }
 
     override suspend fun deleteMovie(movieId: String) {
-        val movie = movies.find { it.id.toString() == movieId }
-        movies.remove(movie)
+        val movie = allDownloads.find { it.id.toString() == movieId }
+        allDownloads.remove(movie)
     }
 
     override suspend fun getDownloads(): List<Movie> {
