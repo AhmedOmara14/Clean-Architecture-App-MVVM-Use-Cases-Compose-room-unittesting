@@ -13,7 +13,6 @@ class GetLocalMoviesUseCase @Inject constructor(val repository: Repository) {
     operator fun invoke(
     ): Flow<Resource<List<Movie>>> = flow {
         try {
-            emit(Resource.Loading<List<Movie>>())
             val movies = repository.getDownloads()
             emit(Resource.Success<List<Movie>>(movies))
         } catch (e: HttpException) {

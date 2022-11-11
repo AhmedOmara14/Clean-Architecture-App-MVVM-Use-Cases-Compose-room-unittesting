@@ -14,13 +14,10 @@ class DeleteMovieUseCase @Inject constructor(val repository: Repository) {
         imdbID: String
     ): Flow<Resource<*>> = flow {
         try {
-            emit(Resource.Loading<Any>())
-            val movies = repository.deleteMovie(movieId = imdbID)
-            emit(Resource.Success<Any>(movies))
-        } catch (e: HttpException) {
+            repository.deleteMovie(imdbID)
+            emit(Resource.Success<Any>("Success"))
+        } catch (e: Exception) {
             emit(Resource.Error<Any>(e.localizedMessage ?: "an Error Occurred"))
-        } catch (e: IOException) {
-            emit(Resource.Error<Any>("No Internet Connection, Check your Internet"))
         }
     }
 }

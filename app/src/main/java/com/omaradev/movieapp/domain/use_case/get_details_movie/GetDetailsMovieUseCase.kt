@@ -11,7 +11,6 @@ class GetDetailsMovieUseCase @Inject constructor(val repository: Repository) {
     operator fun invoke(imdbID: String, apiKey: String):
             Flow<Resource<MovieDetails>> = flow {
         try {
-            emit(Resource.Loading<MovieDetails>())
             val details = repository.getMovieDetailsById(imdbID, apiKey)
             emit(Resource.Success<MovieDetails>(details))
         } catch (e: retrofit2.HttpException) {

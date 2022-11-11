@@ -16,7 +16,6 @@ class GetAllMoviesUseCase @Inject constructor(val repository: Repository) {
         page: Int
     ): Flow<Resource<AllMoviesResponse>> = flow {
         try {
-            emit(Resource.Loading<AllMoviesResponse>())
             val movies = repository.getMovies(movie, apikey, page)
             emit(Resource.Success<AllMoviesResponse>(movies))
         } catch (e: HttpException) {
