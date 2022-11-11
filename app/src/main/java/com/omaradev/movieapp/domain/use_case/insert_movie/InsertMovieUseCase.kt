@@ -14,13 +14,10 @@ class InsertMovieUseCase @Inject constructor(val repository: Repository) {
         movie: Movie
     ): Flow<Resource<*>> = flow {
         try {
-            emit(Resource.Loading<Any>())
-            val movies = repository.insertMovie(movie)
-            emit(Resource.Success<Any>(movies))
-        } catch (e: HttpException) {
+            repository.insertMovie(movie = movie)
+            emit(Resource.Success<Any>("Success"))
+        } catch (e: Exception) {
             emit(Resource.Error<Any>(e.localizedMessage ?: "an Error Occurred"))
-        } catch (e: IOException) {
-            emit(Resource.Error<Any>("No Internet Connection, Check your Internet"))
         }
     }
 }
