@@ -98,5 +98,6 @@ dependencies {
 
     testImplementation "com.google.truth:truth:1.0.1"
     androidTestImplementation "com.google.truth:truth:1.0.1"
+    testImplementation 'app.cash.turbine:turbine:0.7.0'
 
 }
